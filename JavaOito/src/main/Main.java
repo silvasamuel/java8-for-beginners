@@ -6,8 +6,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import enums.ModeratorStatusEnum;
 import models.User;
@@ -148,6 +150,27 @@ public class Main implements Consumer<User> {
 				users.stream().mapToLong(User::getAge).reduce(1, (a,b) -> a * b)
 				+ " years old");
 	}
+	
+	public static void moderatorState() {
+		@SuppressWarnings("unused")
+		boolean hasModerator = users.stream().anyMatch(User::isModerator);
+		boolean allModerators = users.stream().allMatch(User::isModerator);
+		boolean noneModerators = users.stream().noneMatch(User::isModerator);
+		
+		long count = users.stream().filter(User::isModerator).count();
+		
+		if(allModerators) {
+			System.out.println("All users are moderators!");
+		} else if(noneModerators) {
+			System.out.println("No user is moderator!");
+		} else {
+			if(count > 1) {
+				System.out.println("There are " + count + " moderators!");
+			} else {
+				System.out.println("There is " + count + " moderator!");
+			}
+		}
+	}
 
 	public static void main(String [] args) throws IOException {
 		initUser();
@@ -164,6 +187,7 @@ public class Main implements Consumer<User> {
 		//sortByAge();
 		//findFirstUserByAge();
 		//totalAge();
-		agesMultiplication();
+		//agesMultiplication();
+		moderatorState();
 	}
 }
