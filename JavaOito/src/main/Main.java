@@ -8,7 +8,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
+import Utils.Fibonacci;
 import enums.ModeratorStatusEnum;
 import models.User;
 
@@ -169,23 +171,133 @@ public class Main implements Consumer<User> {
 			}
 		}
 	}
+	
+	public static void showFibonacciSequence() throws NumberFormatException, IOException {
+		System.out.println("Enter the amount of the fibonacci sequence values you want to see: ");
+		int quantity = Integer.parseInt(in.readLine());
+		
+		IntStream.generate(new Fibonacci())
+		.limit(quantity)
+		.forEach(System.out::println);
+	}
+	
+	public static void showFirstBiggerThen( ) throws NumberFormatException, IOException {
+		System.out.println("Enter a value: ");
+		int value = Integer.parseInt(in.readLine());
+		
+		int biggerThen = IntStream
+				.generate(new Fibonacci())
+				.filter(f -> f > value)
+				.findFirst()
+				.getAsInt();
+				
+		System.out.println("The first value of the fibonacci sequence bigger Then " +  value + " is: " + biggerThen);
+	}
 
 	public static void main(String [] args) throws IOException {
 		initUser();
-		//sortComparator();
-		//showUser();
-		//sortLambda();
-		//showStatus();
-		//sortWithMethodReferenceAndComparator();
-		//sortAgeThenName();
-		//removeUserByAge();
-		//showUserByAge();
-		//saveUserByAge();
-		//averageAge();
-		//sortByAge();
-		//findFirstUserByAge();
-		//totalAge();
-		//agesMultiplication();
-		moderatorState();
+		int option = 0;
+		
+		do {
+			System.out.println("What method do you want to execute? ");
+			System.out.println("0 - Exit");
+			System.out.println("1 - sortComparator");
+			System.out.println("2 - showUser");
+			System.out.println("3 - sortLambda");
+			System.out.println("4 - showStatus");
+			System.out.println("5 - sortWithMethodReferenceAndComparator");
+			System.out.println("6 - sortAgeThenName");
+			System.out.println("7 - removeUserByAge");
+			System.out.println("8 - showUserByAge");
+			System.out.println("9 - saveUserByAge");
+			System.out.println("10 - averageAge");
+			System.out.println("11 - sortByAge");
+			System.out.println("12 - findFirstUserByAge");
+			System.out.println("13 - totalAge");
+			System.out.println("14 - agesMultiplication");
+			System.out.println("15 - moderatorState");
+			System.out.println("16 - showFibonacciSequence");
+			System.out.println("17 - showFirstBiggerThen");
+			
+			option = Integer.parseInt(in.readLine());
+			
+			switch (option) {
+			case 1:
+				sortComparator();
+				break;
+				
+			case 2:
+				showUser();
+				break;
+				
+			case 3:
+				sortLambda();
+				break;
+				
+			case 4:
+				showStatus();
+				break;
+				
+			case 5:
+				sortWithMethodReferenceAndComparator();
+				break;
+				
+			case 6:
+				sortAgeThenName();
+				break;
+				
+			case 7:
+				removeUserByAge();
+				break;
+				
+			case 8:
+				showUserByAge();
+				break;
+				
+			case 9:
+				saveUserByAge();
+				break;
+				
+			case 10:
+				averageAge();
+				break;
+				
+			case 11:
+				sortByAge();
+				break;
+				
+			case 12:
+				findFirstUserByAge();
+				break;
+				
+			case 13:
+				totalAge();
+				break;
+				
+			case 14:
+				agesMultiplication();
+				break;
+				
+			case 15:
+				moderatorState();
+				break;
+				
+			case 16:
+				showFibonacciSequence();
+				break;
+				
+			case 17:
+				showFirstBiggerThen();
+				break;
+			default:
+				break;
+			}
+			
+			System.out.println("");
+			System.out.println("");
+			
+		} while(option != 0);
+		
+		System.out.println("That all folks!");
 	}
 }
