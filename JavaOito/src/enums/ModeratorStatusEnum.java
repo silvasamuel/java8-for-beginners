@@ -24,6 +24,8 @@ public enum ModeratorStatusEnum {
 		return null;
 	}
 
+	// Gets and Sets
+	
 	public String getDescription() {
 		return description;
 	}

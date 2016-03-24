@@ -13,6 +13,13 @@ public class User {
 		this.age = age;
 		this.moderator = false;
 	}
+	
+	@Override
+	public String toString() {
+		return name;
+	}
+	
+	// Gets and Sets
 
 	public String getName() {
 		return name;
@@ -36,10 +43,5 @@ public class User {
 	
 	public Boolean isModerator() {
 		return moderator;
-	}
-	
-	@Override
-	public String toString() {
-		return name;
 	}
 }

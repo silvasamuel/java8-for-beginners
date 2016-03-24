@@ -53,17 +53,26 @@ public class Main implements Consumer<User> {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * Sort the user list using comparator
+	 */
 	public static void sortComparator() {
 		users.sort(Comparator.comparing(u -> u.getName()));
 		users.forEach(u -> System.out.println(u.getName()));
 	}
 	
+	/**
+	 * Sort the user list with lambda expression
+	 */
 	public static void sortLambda() {
 		users.sort((u1, u2) -> u1.getName().compareTo(u2.getName()));
 		users.forEach(u -> System.out.println(u.getName()));
 	}
 	
+	/**
+	 * Show the user name and the user age
+	 */
 	public static void showUser() {
 		Consumer<User> showName = u -> System.out.print(u.getName() + " :");
 		Consumer<User> showAge = u -> System.out.println(u.getAge());
@@ -71,6 +80,11 @@ public class Main implements Consumer<User> {
 		users.forEach(showName.andThen(showAge));
 	}
 	
+	/**
+	 * Remove users with age above the input
+	 * @throws NumberFormatException
+	 * @throws IOException
+	 */
 	public static void removeUserByAge() throws NumberFormatException, IOException {
 		System.out.println("Enter the maximum users age that you want to keep: ");
 		int age = Integer.parseInt(in.readLine());
@@ -82,6 +96,11 @@ public class Main implements Consumer<User> {
 		});
 	}
 	
+	/**
+	 * Show users with age below the input 
+	 * @throws NumberFormatException
+	 * @throws IOException
+	 */
 	public static void showUserByAge() throws NumberFormatException, IOException {
 		System.out.println("Enter the maximum users age that you want to show: ");
 		int age = Integer.parseInt(in.readLine());
@@ -89,6 +108,11 @@ public class Main implements Consumer<User> {
 		users.stream().filter(u -> u.getAge() < age).forEach(System.out::println);
 	}
 	
+	/**
+	 * Save users that have age below the input in a new list
+	 * @throws NumberFormatException
+	 * @throws IOException
+	 */
 	public static void saveUserByAge() throws NumberFormatException, IOException {
 		System.out.println("Enter the maximum users age that you want to save: ");
 		int age = Integer.parseInt(in.readLine());
@@ -98,17 +122,26 @@ public class Main implements Consumer<User> {
 		usersToSave.forEach(System.out::println);
 	}
 	
+	/**
+	 * Show the user status, if is user or moderator
+	 */
 	public static void showStatus() {
 		users.forEach(u -> System.out.println(
 				ModeratorStatusEnum.recoverByStatus(u.isModerator()).getDescription()));
 		
 	}
 	
+	/**
+	 * Sort the list using method reference and comparator
+	 */
 	public static void sortWithMethodReferenceAndComparator() {
 		users.sort(Comparator.comparing(User::getName));
 		users.forEach(System.out::println);
 	}
 	
+	/**
+	 * Sort the user list by the age and name
+	 */
 	public static void sortAgeThenName() {
 		users.sort(Comparator.comparingInt(User::getAge)
 				.thenComparing(User::getName));
@@ -141,7 +174,7 @@ public class Main implements Consumer<User> {
 	}
 	
 	/**
-	 * Show the first user that have aged bigger than your input
+	 * Show the first user that have age bigger than your input
 	 * @throws NumberFormatException
 	 * @throws IOException
 	 */
