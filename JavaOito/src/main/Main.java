@@ -14,6 +14,9 @@ import Utils.Fibonacci;
 import enums.ModeratorStatusEnum;
 import models.User;
 
+/**
+ * @author samuel.silva
+ */
 public class Main implements Consumer<User> {
 	
 	private static List<User> users;
@@ -23,6 +26,9 @@ public class Main implements Consumer<User> {
 		
 	}
 	
+	/**
+	 * Init Users
+	 */
 	public static void initUser() {
 		users = new ArrayList<>();
 		in = new BufferedReader(new InputStreamReader(System.in));
@@ -37,7 +43,7 @@ public class Main implements Consumer<User> {
 				System.out.println("Enter the user name: ");
 				String name = in.readLine();
 				
-				System.out.println("Enter the users age: ");
+				System.out.println("Enter the user age: ");
 				int age = Integer.parseInt(in.readLine());
 				
 				users.add(new User(name, age));
@@ -47,7 +53,7 @@ public class Main implements Consumer<User> {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void sortComparator() {
 		users.sort(Comparator.comparing(u -> u.getName()));
 		users.forEach(u -> System.out.println(u.getName()));
@@ -110,12 +116,20 @@ public class Main implements Consumer<User> {
 		showUser();
 	}
 	
+	/**
+	 * Make a age average of the users
+	 */
 	public static void averageAge() {
 		double average = users.stream().mapToInt(User::getAge).average().orElse(0.0);
 		
 		System.out.println("The average age is " + average + " years");
 	}
 	
+	/**
+	 * Sort the list by the users name and show the users under the informed limit
+	 * @throws NumberFormatException
+	 * @throws IOException
+	 */
 	public static void sortByAge() throws NumberFormatException, IOException {
 		System.out.println("Enter the maximum users age that you want to show: ");
 		int age = Integer.parseInt(in.readLine());
@@ -126,6 +140,11 @@ public class Main implements Consumer<User> {
 			.collect(Collectors.toList());
 	}
 	
+	/**
+	 * Show the first user that have aged bigger than your input
+	 * @throws NumberFormatException
+	 * @throws IOException
+	 */
 	public static void findFirstUserByAge() throws NumberFormatException, IOException {
 		System.out.println("Enter the maximum users age that you want to show: ");
 		int age = Integer.parseInt(in.readLine());
@@ -140,17 +159,26 @@ public class Main implements Consumer<User> {
 		System.out.println(userEntity.getName());
 	}
 	
+	/**
+	 * Method to sum all ages of the users
+	 */
 	public static void totalAge() {
 		System.out.println("The total users age is " + 
 				users.stream().mapToInt(User::getAge).sum() + " years old");
 	}
 	
+	/**
+	 * Method to multiply all ages of the users
+	 */
 	public static void agesMultiplication() {
 		System.out.println("The multiplication of ages results in " +
 				users.stream().mapToLong(User::getAge).reduce(1, (a,b) -> a * b)
 				+ " years old");
 	}
 	
+	/**
+	 * Verify if has moderators or not
+	 */
 	public static void moderatorState() {
 		@SuppressWarnings("unused")
 		boolean hasModerator = users.stream().anyMatch(User::isModerator);
@@ -172,6 +200,11 @@ public class Main implements Consumer<User> {
 		}
 	}
 	
+	/**
+	 * Show elements of the fibonacci sequence according to the given input
+	 * @throws NumberFormatException
+	 * @throws IOException
+	 */
 	public static void showFibonacciSequence() throws NumberFormatException, IOException {
 		System.out.println("Enter the amount of the fibonacci sequence values you want to see: ");
 		int quantity = Integer.parseInt(in.readLine());
@@ -181,6 +214,11 @@ public class Main implements Consumer<User> {
 		.forEach(System.out::println);
 	}
 	
+	/**
+	 * Show the first element of the fibonacci sequence bigger then your input 
+	 * @throws NumberFormatException
+	 * @throws IOException
+	 */
 	public static void showFirstBiggerThen( ) throws NumberFormatException, IOException {
 		System.out.println("Enter a value: ");
 		int value = Integer.parseInt(in.readLine());
@@ -193,7 +231,12 @@ public class Main implements Consumer<User> {
 				
 		System.out.println("The first value of the fibonacci sequence bigger Then " +  value + " is: " + biggerThen);
 	}
-
+	
+	/**
+	 * Menu
+	 * @param args
+	 * @throws IOException
+	 */
 	public static void main(String [] args) throws IOException {
 		initUser();
 		int option = 0;

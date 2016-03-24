@@ -1,5 +1,8 @@
 package enums;
 
+/**
+ * @author samuel.silva
+ */
 public enum ModeratorStatusEnum {
 	MODERATOR("Moderator", true),
 	USER("User", false);
