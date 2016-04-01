@@ -10,9 +10,9 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import Utils.Fibonacci;
 import enums.ModeratorStatusEnum;
 import models.User;
+import utils.Fibonacci;
 
 /**
  * @author samuel.silva
