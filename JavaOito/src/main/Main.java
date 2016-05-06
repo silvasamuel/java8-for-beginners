@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -252,7 +253,7 @@ public class Main implements Consumer<User> {
 	 * @throws NumberFormatException
 	 * @throws IOException
 	 */
-	public static void showFirstBiggerThen( ) throws NumberFormatException, IOException {
+	public static void showFirstBiggerThen() throws NumberFormatException, IOException {
 		System.out.println("Enter a value: ");
 		int value = Integer.parseInt(in.readLine());
 		
@@ -263,6 +264,50 @@ public class Main implements Consumer<User> {
 				.getAsInt();
 				
 		System.out.println("The first value of the fibonacci sequence bigger Then " +  value + " is: " + biggerThen);
+	}
+	
+	/**
+	 * Make a map using the users age and the method groupingBy
+	 */
+	public static void groupByMap() {
+		Map<Integer, List<User>> ageMap = users.stream().collect(Collectors.groupingBy(User::getAge));
+		
+		System.out.println(ageMap);
+	}
+	
+	/**
+	 * Make a map using the the moderators status how key
+	 */
+	public static void partitionByMap() {
+		if(!users.isEmpty())
+			users.get(0).setModerator(true);
+		
+		Map<Boolean, List<User>> moderators = users.stream()
+				.collect(Collectors.partitioningBy(User::isModerator));
+		
+		System.out.println(moderators);
+	}
+	
+	/**
+	 * Show the ages sum by status using partitioningBy
+	 */
+	public static void sumAgesByStatus() {
+		if(!users.isEmpty())
+			users.get(0).setModerator(true);
+		
+		Map<Boolean, Integer> agesSum = users.stream().collect(Collectors.partitioningBy(
+				User::isModerator, Collectors.summingInt(User::getAge)));
+		
+		System.out.println(agesSum);
+	}
+	
+	/**
+	 * Show user names using join
+	 */
+	public static void showNamesWithJoin() {
+		String names = users.stream().map(User::getName).collect(Collectors.joining(", "));
+		
+		System.out.println(names);
 	}
 	
 	/**
@@ -294,6 +339,10 @@ public class Main implements Consumer<User> {
 			System.out.println("15 - moderatorState");
 			System.out.println("16 - showFibonacciSequence");
 			System.out.println("17 - showFirstBiggerThen");
+			System.out.println("18 - groupByMap");
+			System.out.println("19 - partitionByMap");
+			System.out.println("20 - sumAgesByStatus");
+			System.out.println("21 - showNamesWithJoin");
 			
 			option = Integer.parseInt(in.readLine());
 			
@@ -364,6 +413,22 @@ public class Main implements Consumer<User> {
 				
 			case 17:
 				showFirstBiggerThen();
+				break;
+				
+			case 18:
+				groupByMap();
+				break;
+				
+			case 19:
+				partitionByMap();
+				break;
+				
+			case 20:
+				sumAgesByStatus();
+				break;
+				
+			case 21:
+				showNamesWithJoin();
 				break;
 			default:
 				break;
