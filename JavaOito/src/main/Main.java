@@ -41,7 +41,7 @@ public class Main implements Consumer<User> {
 			loop = Integer.parseInt(in.readLine());
 			
 			while(loop > 0) {
-				System.out.println("Enter the user name: ");
+				System.out.println("Enter the username: ");
 				String name = in.readLine();
 				
 				System.out.println("Enter the user age: ");
@@ -72,7 +72,7 @@ public class Main implements Consumer<User> {
 	}
 	
 	/**
-	 * Show the user name and the user age
+	 * Show the username and the user age
 	 */
 	public static void showUser() {
 		Consumer<User> showName = u -> System.out.print(u.getName() + " :");
@@ -263,7 +263,7 @@ public class Main implements Consumer<User> {
 				.findFirst()
 				.getAsInt();
 				
-		System.out.println("The first value of the fibonacci sequence bigger Then " +  value + " is: " + biggerThen);
+		System.out.println("The first fibonacci sequence value bigger Then " +  value + " is: " + biggerThen);
 	}
 	
 	/**
@@ -302,12 +302,49 @@ public class Main implements Consumer<User> {
 	}
 	
 	/**
-	 * Show user names using join
+	 * Show usernames using join
 	 */
 	public static void showNamesWithJoin() {
 		String names = users.stream().map(User::getName).collect(Collectors.joining(", "));
 		
 		System.out.println(names);
+	}
+	
+	/**
+	 * Order by name and select by age using multiple threads
+	 * @throws IOException 
+	 * @throws NumberFormatException 
+	 */
+	public static void orderUsingMultThreads() throws NumberFormatException, IOException {
+		System.out.println("Enter a age: ");
+		int value = Integer.parseInt(in.readLine());
+		
+		users = users.parallelStream()
+				.filter(u -> u.getAge() > value)
+				.sorted(Comparator.comparing(User::getName))
+				.collect(Collectors.toList());
+		
+		showUser();
+	}
+	
+	/**
+	 * Add new users
+	 * @throws IOException 
+	 */
+	private static void addUsers() throws IOException {
+		String exit = "N";
+		
+		do {
+			System.out.println("Enter the username: ");
+			String username = in.readLine();
+			System.out.println("Enter the user age: ");
+			int userage = Integer.parseInt(in.readLine());
+			
+			users.add(new User(username, userage));
+			
+			System.out.println("Do you want to add more users? S / N ");
+			exit = in.readLine();
+		}while (exit.equals("S"));
 	}
 	
 	/**
@@ -343,6 +380,8 @@ public class Main implements Consumer<User> {
 			System.out.println("19 - partitionByMap");
 			System.out.println("20 - sumAgesByStatus");
 			System.out.println("21 - showNamesWithJoin");
+			System.out.println("22 - orderUsingMultThreads");
+			System.out.println("100 - To add more users");
 			
 			option = Integer.parseInt(in.readLine());
 			
@@ -430,8 +469,22 @@ public class Main implements Consumer<User> {
 			case 21:
 				showNamesWithJoin();
 				break;
+			
+			case 22:
+				orderUsingMultThreads();
+				break;
+				
+			case 100:
+				addUsers();
+				break;
 			default:
 				break;
+			}
+			
+			if(option != 0) {
+				System.out.println();
+				System.out.println("Press enter to continue... ");
+				in.readLine();
 			}
 			
 			System.out.println("");
