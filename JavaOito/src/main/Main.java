@@ -106,7 +106,7 @@ public class Main implements Consumer<User> {
 		System.out.println("Enter the maximum users age that you want to show: ");
 		int age = Integer.parseInt(in.readLine());
 		
-		users.stream().filter(u -> u.getAge() < age).forEach(System.out::println);
+		users.stream().filter(u -> u.getAge() <= age).forEach(System.out::println);
 	}
 	
 	/**
@@ -279,8 +279,9 @@ public class Main implements Consumer<User> {
 	 * Make a map using the the moderators status how key
 	 */
 	public static void partitionByMap() {
-		if(!users.isEmpty())
+		if(!users.isEmpty()) {
 			users.get(0).setModerator(true);
+		}
 		
 		Map<Boolean, List<User>> moderators = users.stream()
 				.collect(Collectors.partitioningBy(User::isModerator));
